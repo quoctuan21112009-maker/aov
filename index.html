@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8347855396412381"
+     crossorigin="anonymous"></script>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Tạo khung skin Liên Quân</title>
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/appbar.css">
+  <link rel="stylesheet" href="assets/css/footer.css">
+  <link rel="stylesheet" href="assets/css/profile.css">
+  <link rel="stylesheet" href="assets/css/background.css">
+  <link rel="stylesheet" href="assets/css/custom.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/gallery.css">
+</head>
+
+<body>
+  <!-- 🌀 Loader -->
+    <div class="loader-container">
+      <div class="loader"> 
+        <div class="loader--dot"></div>
+        <div class="loader--dot"></div>
+        <div class="loader--dot"></div>
+        <div class="loader--dot"></div>
+        <div class="loader--dot"></div>
+        <div class="loader--dot"></div>
+        <div class="loader--text">Loading...</div>
+      </div>
+    </div>
+    <script src="assets/js/custom.js"></script>
+  <!-- 🌀 End Loader -->
+<header>
+    <nav class="app-bar">
+      <a href="/" class="active">Trang Chủ</a>
+      <a href="gallery.html">Code AM</a>
+      <!-- Hamburger menu -->
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    </nav>
+    <!-- Popup thông tin liên hệ -->
+  <div id="contactPopupContainer"></div>
+  </header>
+  <script src="assets/js/profile.js"></script>
+  <div class="search-box">
+  <img src="assets/logo-images/logo52hzmisfit.png" alt="logo" class="logo-pulse" />
+  </div>
+<p style="color:#ffffff;">
+  <h3>Code Ghép Ảnh ở trang "Code AM" ý</h3><br>
+    - Chào bạn nha. mình biết bạn gặp khó khăn trong việc fake khung Liqi<br>
+    - Nên mình đã tạo ra web này nè hihihi<br>
+    - Cứ dùng thoải mái làm gì cũng được nhóa hẹ he hẹ<br>
+    - cre: 52HzMisfit (không cre cũng chẳng sao đâu thoải mái đi hehehee:)))) <br>
+    <h3 class="rainbow-text">Lưu ý: Tớ thích cậu nên là cậu đồng ý đy 😾</h3>
+    <br>
+ <div class="container">
+  <h1 style="color: #FFFFFF">Tạo khung skin Liên Quân</h1><br>
+
+  <div class="controls">
+    <label>Chọn Tướng:
+      <select id="tuongSelect"></select>
+    </label>
+
+    <label>Chọn Skin:
+      <select id="skinSelect"></select>
+    </label>
+
+    <label>Chọn Khung:
+      <select id="khungSelect"></select>
+    </label>
+
+    <label>Chọn Phép bổ trợ:
+      <select id="phepSelect"></select>
+    </label>
+
+    <label>Chọn Thông thạo:
+      <select id="thongthaoSelect"></select>
+    </label>
+
+    <label>Chọn Tri kỉ:
+      <select id="trikiSelect"></select>
+    </label>
+
+    <label>Chọn phù hiệu chính:
+  <select id="phuhieuGroupSelect">
+    <option value="khong">Không</option>
+    <option value="luc">Phù hiệu Lục</option>
+    <option value="vang">Phù hiệu Vàng</option>
+    <option value="do">Phù hiệu Đỏ</option>
+    <option value="lam">Phù hiệu Lam</option>
+  </select>
+</label>
+
+<label id="phuhieuLabel" style="display: none;">Chọn phù hiệu:
+  <select id="phuhieuSelect"></select>
+</label>
+
+    <div class="switch-label">
+  <span>Viền tên vàng</span>
+
+  <!-- <-- dùng label cho switch để click vào slider sẽ toggle checkbox -->
+  <label class="switch">
+    <input type="checkbox" id="vienvangCheck">
+    <span class="slider"></span>
+  </label>
+</div>
+
+    <label>Nếu dán tên kí tự thì hãy gõ một chữ rồi dán nha <br>
+      Nhập tên game của bạn:
+      <input type="text" id="tenGameInput" placeholder="Nhập tên game...">
+    </label>
+
+    <h4 style="color:#ffcc00;">Bấm tạo ảnh chờ 2 đến 5s tùy máy. Giữ 2s để lưu hình cho nhanh!</h4>
+
+    <!-- Nút tạo ảnh -->
+    <button id="createBtn">✨ Tạo ảnh</button>
+
+    <!-- Canvas đặt ngay dưới các nút -->
+    <canvas id="preview" width="900" height="1200" style="display:none;"></canvas>
+
+    <!-- Nút lưu ảnh, ẩn trước -->
+    <button id="saveBtn" style="display:none;">💾 Lưu hình</button>
+  </div>
+</div>
+<script src="assets/js/app.js"></script>
+<!-- 🐧 Footer -->
+<footer class="site-footer">
+  <div class="footer-container">
+    <!-- Cột trái: Lưu ý -->
+    <div class="footer-left">
+      <h3>Lưu ý nhỏ 🐧</h3>
+      <p>Mở web bằng trình duyệt bên ngoài để lưu ảnh. Hoặc bấm giữ 2s để lưu ảnh, trên pc thì click chuột phải rồi chọn lưu ảnh. Web này chỉ tham khảo để ghép khung Liên Quân.</p>
+    </div>
+
+    <!-- Cột phải: Thông tin liên hệ -->
+    <div class="footer-right">
+      <h3>Nguồn</h3>
+      <a href="https://lienquan.garena.vn" target="_blank">Garena Liên Quân Mobile</a>
+    </div>
+  </div>
+</footer>
+<!-- 🐧 End Footer -->
+</body>
+</html>
