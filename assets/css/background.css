@@ -1,16 +1,20 @@
 /* ========== BODY & LAYOUT ========== */
 body {
-  font-family: 'Poppins', 'Arial', sans-serif;
+  font-family: 'Sora', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   min-height: 100vh;
   padding: 20px;
-  color: #111;
+  color: var(--text, #222);
   margin: 0;
   overflow-x: hidden;
 
-  /* Gradient loang toàn giao diện */
-  background: linear-gradient(135deg, #4c65f6 0%, #b57eff 100%);
+  /* Soft layered mint background for better contrast */
+  background:
+    radial-gradient(circle at 8% 18%, rgba(54, 211, 153, 0.08), transparent 10%),
+    radial-gradient(circle at 92% 82%, rgba(54, 211, 153, 0.06), transparent 12%),
+    linear-gradient(135deg, #F3FFF8 0%, #E8FFF4 45%, #FFFFFF 100%);
+  background-attachment: fixed;
 }

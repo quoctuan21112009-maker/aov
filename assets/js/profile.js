@@ -13,13 +13,16 @@ document.addEventListener('DOMContentLoaded', () => {
       const closeBtn = document.getElementById('closePopup');
 
       // Gán event nút đóng
-      closeBtn.addEventListener('click', () => {
-        popup.style.display = 'none';
-      });
+      closeBtn.addEventListener('click', () => { popup.style.display = 'none'; });
 
       // Gán event hamburger
-      hamburger.addEventListener('click', () => {
-        popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+      hamburger.addEventListener('click', () => { popup.style.display = popup.style.display === 'block' ? 'none' : 'block'; });
+
+      // Đóng popup khi click bên ngoài
+      document.addEventListener('click', (e) => {
+        if (!popup.contains(e.target) && !hamburger.contains(e.target)) {
+          popup.style.display = 'none';
+        }
       });
     })
     .catch(err => console.error('Lỗi load profile:', err));

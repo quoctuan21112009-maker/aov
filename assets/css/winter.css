@@ -1,0 +1,350 @@
+/* ===============================
+   ❄️ WINTER SNOW EFFECT (DYNAMICS)
+=============================== */
+
+.snow {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+.snow::before,
+.snow::after {
+    content: "";
+    position: absolute;
+    /* Mở rộng vùng phủ để khi lắc lư không lộ viền */
+    top: -100vh;
+    left: -50vw;
+    right: -50vw;
+    bottom: -100vh;
+    background-repeat: repeat;
+}
+
+/* ❄️ TUYẾT GẦN: Rơi nhanh hơn, lắc mạnh hơn */
+.snow::before {
+    background-image:
+        radial-gradient(4px 4px at 50px 50px, #fff, transparent),
+        radial-gradient(3px 3px at 150px 250px, #fff, transparent),
+        radial-gradient(4px 4px at 350px 100px, #fff, transparent),
+        radial-gradient(3px 3px at 250px 350px, #fff, transparent);
+    background-size: 500px 500px;
+    opacity: .8;
+    animation: snowFallNear 12s linear infinite;
+}
+
+/* ❄️ TUYẾT XA: Rơi chậm, mờ, bay nhẹ nhàng */
+.snow::after {
+    background-image:
+        radial-gradient(2px 2px at 30px 40px, #fff, transparent),
+        radial-gradient(2px 2px at 200px 180px, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 280px 40px, #fff, transparent),
+        radial-gradient(2px 2px at 120px 320px, #fff, transparent);
+    background-size: 400px 400px;
+    opacity: .5;
+    animation: snowFallFar 25s linear infinite;
+}
+
+/* HIỆU ỨNG TUYẾT GẦN (Loạn xạ mạnh) */
+@keyframes snowFallNear {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(-30px, 25vh);
+    }
+
+    50% {
+        transform: translate(40px, 50vh);
+    }
+
+    75% {
+        transform: translate(-20px, 75vh);
+    }
+
+    100% {
+        transform: translate(0, 100vh);
+    }
+}
+
+/* HIỆU ỨNG TUYẾT XA (Bay chầm chậm, lơ lửng) */
+@keyframes snowFallFar {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    33% {
+        transform: translate(50px, 33vh);
+    }
+
+    66% {
+        transform: translate(-50px, 66vh);
+    }
+
+    100% {
+        transform: translate(0, 100vh);
+    }
+}
+
+/* ===== RESET & BODY ===== */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    color: #1e3a8a;
+    overflow-x: hidden;
+}
+
+/* NỀN GIẤY CÓ DÒNG KẺ & NGÔI SAO */
+body {
+    background-color: #f0f7ff;
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='256'%3E%3Ctext font-size='16' fill='%23bae6fd' font-family='Arial'%3E%3C!-- Hàng sao 1 --%3E%3Ctspan x='20' y='14'%3E✦%3C/tspan%3E%3Ctspan x='100' y='14'%3E✦%3C/tspan%3E%3C!-- Hàng sao 2 --%3E%3Ctspan x='60' y='142'%3E✦%3C/tspan%3E%3Ctspan x='140' y='142'%3E✦%3C/tspan%3E%3C/text%3E%3C/svg%3E"),
+        repeating-linear-gradient(to bottom,
+            rgba(186, 230, 253, .5) 0px,
+            rgba(186, 230, 253, .5) 1px,
+            #f8fafc8d 1px,
+            #f8fafc8d 32px,
+            rgba(186, 230, 253, .5) 32px,
+            rgba(186, 230, 253, .5) 33px,
+            #f1f5f98d 33px,
+            #f1f5f98d 64px,
+            rgba(186, 230, 253, .5) 64px,
+            rgba(186, 230, 253, .5) 65px,
+            #eff6ff8d 65px,
+            #eff6ff8d 96px,
+            rgba(186, 230, 253, .5) 96px,
+            rgba(186, 230, 253, .5) 97px,
+            #e0f2fe8d 97px,
+            #e0f2fe8d 128px);
+    background-repeat: repeat, repeat;
+    background-size: 160px 256px, auto;
+    background-position: left top, left top;
+}
+
+/* ===== HEADER ===== */
+.header {
+    background: linear-gradient(135deg, #60a5fa, #3b82f6);
+    color: #fff;
+    text-align: center;
+    padding: 20px 15px;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 22px;
+    letter-spacing: 0.5px;
+}
+
+/* ===== NAV (NÂNG CẤP) ===== */
+.nav {
+    background: #bae6fd;
+    text-align: center;
+    padding: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.nav a {
+    position: relative;
+    color: #1d4ed8;
+    margin: 0 16px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 6px 2px;
+    transition: color .25s ease;
+}
+
+.nav a:hover {
+    color: #1e40af;
+}
+
+.nav a::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -6px;
+    width: 0;
+    height: 2px;
+    background: #1d4ed8;
+    transition: width .3s ease;
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+.nav a:hover::after {
+    width: 100%;
+}
+
+.nav a.active {
+    color: #ffffff;
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.9), 0 0 12px rgba(255, 255, 255, 0.6);
+}
+
+.nav a.active::after {
+    width: 100%;
+    background: #fff;
+}
+
+/* ===== POST / FEED ===== */
+.post {
+    background: #fff;
+    max-width: 720px;
+    margin: 24px auto;
+    padding: 18px 18px 20px;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(59, 130, 246, 0.1);
+}
+
+.post-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 8px;
+    color: #1e40af;
+}
+
+.post-caption {
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 14px;
+    color: #1e3a8a;
+}
+
+.post-image {
+    width: 100%;
+    border-radius: 14px;
+    margin-bottom: 14px;
+}
+
+/* ===== POST ACTIONS ===== */
+.post-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    border: none;
+    padding: 8px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn.like {
+    background: #e0f2fe;
+    color: #2563eb;
+}
+
+.btn.save {
+    background: #f0f9ff;
+    color: #0284c7;
+}
+
+.btn.detail {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.btn:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+}
+
+/* ===== DETAIL PAGE ===== */
+.detail-code {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 800;
+    margin: 30px 0 20px;
+    color: #1d4ed8;
+}
+
+.detail-image {
+    display: block;
+    max-width: 520px;
+    width: 100%;
+    margin: 0 auto 24px;
+    border-radius: 16px;
+    box-shadow: 0 10px 24px rgba(59, 130, 246, 0.15);
+}
+
+.detail-desc {
+    max-width: 640px;
+    margin: 0 auto 24px;
+    line-height: 1.7;
+    font-size: 15px;
+    color: #334155;
+}
+
+/* ===== LINK BUTTON ===== */
+.btn.detail-link {
+    display: inline-flex;
+    margin: 0 auto;
+    background: linear-gradient(135deg, #60a5fa, #3b82f6);
+    color: #fff;
+    padding: 10px 22px;
+    border-radius: 999px;
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
+}
+
+/* ===== GRID (TRANG MẪU GỌN) ===== */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 18px;
+}
+
+.card {
+    background: #fff;
+    padding: 12px;
+    border-radius: 14px;
+    text-align: center;
+    box-shadow: 0 8px 18px rgba(59, 130, 246, 0.08);
+}
+
+/* ===== FOOTER GỐC ===== */
+.footer {
+    margin-top: 40px;
+    background: #1e40af;
+    color: #fff;
+    text-align: center;
+    padding: 16px;
+    font-size: 13px;
+}
+
+/* ===== DEV PLACEHOLDER ===== */
+.dev {
+    text-align: center;
+    font-style: italic;
+    color: #1e40af;
+    margin-top: 40px;
+}
+
+/* ===============================
+   MOBILE & RESPONSVIE STYLES
+   (kept concise in this theme file)
+   =============================== */
+@media (max-width:768px) {
+    .nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 4px;
+        padding: 10px;
+    }
+}
+
+/* Lưu ý người thiết kế: giữ phần "Code AM" hiện hữu trong menu và gallery.html không bị xóa */
+/* tạo màu sắc và giao diện ntn này này và phần code am giữ lại để web nó đc đẹp */

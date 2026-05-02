@@ -33,31 +33,110 @@ async function loadJSON(url) {
 }
 
 async function loadAllData() {
-  heroes = await loadJSON("assets/data/heroandskin.json");
-  khungs = await loadJSON("assets/data/khung.json");
-  pheps = await loadJSON("assets/data/phepbotro.json");
-  thongthaos = await loadJSON("assets/data/thongthao.json");
-  trikis = await loadJSON("assets/data/triki.json");
-  phuhieus = await loadJSON("assets/data/phuhieu.json");
-  
-  populateSelect(tuongSelect, heroes, true);
-  populateSelect(khungSelect, khungs);
-  populateSelect(phepSelect, pheps);
-  populateSelect(thongthaoSelect, thongthaos);
-  populateSelect(trikiSelect, trikis);
+  try {
+    heroes = await loadJSON("assets/data/heroandskin.json");
+    khungs = await loadJSON("assets/data/khung.json");
+    pheps = await loadJSON("assets/data/phepbotro.json");
+    thongthaos = await loadJSON("assets/data/thongthao.json");
+    trikis = await loadJSON("assets/data/triki.json");
+    phuhieus = await loadJSON("assets/data/phuhieu.json");
 
-  // Gọi event change để load danh sách skin đầu tiên
-  tuongSelect.dispatchEvent(new Event("change"));
+    populateSelect(tuongSelect, heroes, true);
+    populateSelect(khungSelect, khungs);
+    populateSelect(phepSelect, pheps);
+    populateSelect(thongthaoSelect, thongthaos);
+    populateSelect(trikiSelect, trikis);
+
+    // Attach small prev/next cyclers to selects to make selection obvious
+    [tuongSelect, skinSelect, khungSelect, phepSelect, thongthaoSelect, trikiSelect, phuhieuSelect].forEach(attachCycler);
+
+    // Gọi event change để load danh sách skin đầu tiên
+    tuongSelect.dispatchEvent(new Event("change"));
+  } catch (err) {
+    console.error('Failed to load data:', err);
+    showDataLoadError();
+
+    // Fallback: populate minimal sample entries so UI isn't empty
+    heroes = [{ name: 'Mẫu', skins: [{ file: 'default.png', displayName: 'Skin mẫu' }] }];
+    khungs = [{ file: 'khung_mau.png', displayName: 'Khung mẫu' }];
+    pheps = [{ file: 'phep_mau.png', displayName: 'Phép mẫu' }];
+    thongthaos = [{ file: 'tt_mau.png', displayName: 'Thông thạo mẫu' }];
+    trikis = [{ file: 'triki_mau.png', displayName: 'Tri kỉ mẫu' }];
+    phuhieus = { khong: [] };
+
+    populateSelect(tuongSelect, heroes, true);
+    populateSelect(khungSelect, khungs);
+    populateSelect(phepSelect, pheps);
+    populateSelect(thongthaoSelect, thongthaos);
+    populateSelect(trikiSelect, trikis);
+    [tuongSelect, skinSelect, khungSelect, phepSelect, thongthaoSelect, trikiSelect, phuhieuSelect].forEach(attachCycler);
+    tuongSelect.dispatchEvent(new Event("change"));
+  }
+}
+
+// Attach small prev/next buttons next to a select to make choosing obvious
+function attachCycler(selectEl) {
+  if (!selectEl || selectEl.__cyclerAttached) return;
+  selectEl.__cyclerAttached = true;
+
+  const wrapper = document.createElement('div');
+  wrapper.className = 'select-row';
+
+  const prev = document.createElement('button');
+  prev.type = 'button';
+  prev.className = 'cycle-btn prev';
+  prev.title = 'Chọn trước';
+  prev.textContent = '◀';
+
+  const next = document.createElement('button');
+  next.type = 'button';
+  next.className = 'cycle-btn next';
+  next.title = 'Chọn sau';
+  next.textContent = '▶';
+
+  // Insert wrapper and move select into it
+  selectEl.parentNode.insertBefore(wrapper, selectEl);
+  wrapper.appendChild(prev);
+  wrapper.appendChild(selectEl);
+  wrapper.appendChild(next);
+
+  prev.addEventListener('click', () => {
+    if (!selectEl.options.length) return;
+    selectEl.selectedIndex = Math.max(0, selectEl.selectedIndex - 1);
+    selectEl.dispatchEvent(new Event('change'));
+  });
+
+  next.addEventListener('click', () => {
+    if (!selectEl.options.length) return;
+    selectEl.selectedIndex = Math.min(selectEl.options.length - 1, selectEl.selectedIndex + 1);
+    selectEl.dispatchEvent(new Event('change'));
+  });
+}
+
+function showDataLoadError() {
+  if (document.querySelector('.data-error')) return;
+  const note = document.createElement('div');
+  note.className = 'data-error';
+  note.textContent = 'Không tải được dữ liệu. Nếu bạn mở file trực tiếp (file://), hãy mở bằng Live Server hoặc một web server cục bộ để hoạt động đầy đủ.';
+  const retry = document.createElement('button');
+  retry.type = 'button';
+  retry.textContent = 'Thử lại';
+  retry.className = 'cycle-btn';
+  retry.style.marginLeft = '12px';
+  retry.addEventListener('click', () => { note.remove(); loadAllData(); });
+  note.appendChild(retry);
+  const controls = document.querySelector('.controls');
+  if (controls) controls.insertBefore(note, controls.firstChild);
 }
 
 // ==================
 // Populate select
 // ==================
-function populateSelect(select, data, isHero=false) {
+function populateSelect(select, data, isHero = false) {
   select.innerHTML = "";
   data.forEach(item => {
     const option = document.createElement("option");
-    if(isHero){
+    if (isHero) {
       option.value = item.name;
       option.textContent = item.name;
     } else {
@@ -80,22 +159,22 @@ function getSelectedSkin() {
   return hero?.skins.find(s => s.file === skinSelect.value);
 }
 
-function loadImage(src){
-  return new Promise(resolve=>{
+function loadImage(src) {
+  return new Promise(resolve => {
     const img = new Image();
     img.src = "assets/images/" + src;
-    img.onload = ()=>resolve(img);
-    img.onerror = ()=>resolve(null);
+    img.onload = () => resolve(img);
+    img.onerror = () => resolve(null);
   });
 }
 
-function drawImageCover(ctx, img, x, y, w, h){
-  if(!img) return;
+function drawImageCover(ctx, img, x, y, w, h) {
+  if (!img) return;
   const scale = Math.min(w / img.width, h / img.height);
   const iw = img.width * scale;
   const ih = img.height * scale;
-  const ix = x + (w - iw)/2;
-  const iy = y + (h - ih)/2;
+  const ix = x + (w - iw) / 2;
+  const iy = y + (h - ih) / 2;
   ctx.drawImage(img, ix, iy, iw, ih);
 }
 
@@ -113,8 +192,8 @@ function updatePhuhieuList(groupKey) {
 // ==================
 // Draw canvas
 // ==================
-async function drawCanvas(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
+async function drawCanvas() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   const hero = getSelectedHero();
   const skin = getSelectedSkin();
@@ -126,7 +205,7 @@ async function drawCanvas(){
   const nameGame = tenGameInput.value;
 
   // Layer 1: Hero + skin
-  if(skin){
+  if (skin) {
     const imgHero = await loadImage("heroandskin/" + skin.file);
     const newWidth = canvas.width * 0.91;
     const newHeight = canvas.height * 0.91;
@@ -157,7 +236,7 @@ async function drawCanvas(){
 
   // Layer 4: Khung
   const imgKhung = await loadImage("khung/" + khung);
-  drawImageCover(ctx, imgKhung, 0,0, canvas.width, canvas.height);
+  drawImageCover(ctx, imgKhung, 0, 0, canvas.width, canvas.height);
 
   // Layer 5: Tag
   if (skin && skin.tag) {
@@ -166,7 +245,7 @@ async function drawCanvas(){
       const tagW = 380;
       const scale = tagW / imgTag.width;
       const tagH = imgTag.height * scale;
-      const tagX = (canvas.width - tagW) / 2; 
+      const tagX = (canvas.width - tagW) / 2;
       const tagY = canvas.height - tagH - 455;
       drawImageCover(ctx, imgTag, tagX, tagY, tagW, tagH);
     }
@@ -174,12 +253,12 @@ async function drawCanvas(){
 
   // Layer 6: Thông thạo
   const imgThongthao = await loadImage("thongthao/" + thongthao);
-  drawImageCover(ctx, imgThongthao, 50,40,240,240);
+  drawImageCover(ctx, imgThongthao, 50, 40, 240, 240);
 
   // Layer 7: Phép bổ trợ
   const imgPhep = await loadImage("phepbotro/" + phep);
   drawImageCover(ctx, imgPhep, (canvas.width - 128) / 2, canvas.height - 166, 132, 132);
-  
+
   // Layer 8: Tri kỉ
   const imgTriki = await loadImage("triki/" + triki);
   drawImageCover(ctx, imgTriki, 165, canvas.height - 185, 150, 150);
@@ -193,7 +272,7 @@ async function drawCanvas(){
   }
 
   // Layer 9: Tên tướng
-  if(hero){
+  if (hero) {
     let text = hero.name;
     let fontSize = 75;
     ctx.textAlign = "center";
@@ -204,7 +283,7 @@ async function drawCanvas(){
       var textWidth = ctx.measureText(text).width;
       if (textWidth > 600) fontSize -= 1;
       else break;
-    } while(fontSize > 10);
+    } while (fontSize > 10);
 
     const x = canvas.width / 2;
     const y = canvas.height - 328;
@@ -216,9 +295,9 @@ async function drawCanvas(){
     ctx.fillStyle = "#3094ff";
     ctx.fillText(text, x, y);
   }
-  
+
   // Layer 10: Tên skin
-  if(skin && skin.displayName){
+  if (skin && skin.displayName) {
     let text = skin.displayName;
     let fontSize = 75;
     ctx.textAlign = "center";
@@ -229,7 +308,7 @@ async function drawCanvas(){
       var textWidth = ctx.measureText(text).width;
       if (textWidth > 630) fontSize -= 1;
       else break;
-    } while(fontSize > 10);
+    } while (fontSize > 10);
 
     const x = canvas.width / 2;
     const y = canvas.height - 430;
@@ -306,7 +385,7 @@ createBtn.addEventListener("click", async () => {
 // ==================
 // Nút "Lưu ảnh"
 // ==================
-saveBtn.addEventListener("click", ()=>{
+saveBtn.addEventListener("click", () => {
   const link = document.createElement("a");
   link.download = "skin_preview.png";
   link.href = canvas.toDataURL("image/png");

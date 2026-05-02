@@ -1,16 +1,32 @@
+:root {
+  --bg-1: #F3FFF8;
+  /* very pale mint */
+  --bg-2: #E8FFF4;
+  /* soft mint wash */
+  --accent-1: #36D399;
+  /* main mint */
+  --accent-2: #B6F7E4;
+  /* light mint */
+  --mint: #36D399;
+  --lav: #DFFCF0;
+  --card: rgba(255, 255, 255, 0.94);
+  --glass: rgba(255, 255, 255, 0.12);
+  --text: #0f3b33;
+  /* deep teal for readability */
+  --muted: #5f7a73;
+  --shadow: 0 12px 36px rgba(14, 55, 47, 0.06);
+}
+
 /* ===== Loader ===== */
 .loader-container {
   position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
-  background: linear-gradient(135deg, #4c65f6 0%, #b57eff 100%);
+  inset: 0;
+  background: radial-gradient(circle at 20% 30%, rgba(255, 200, 220, 0.28), transparent 8%), linear-gradient(135deg, var(--lav), var(--bg-2));
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 10;
-  animation: hideLoader 0.5s ease 0.5s forwards; /* ẩn sau 1 giây */
+  z-index: 1000;
+  animation: hideLoader 0.6s ease 0.6s forwards;
 }
 
 @keyframes hideLoader {
@@ -21,80 +37,89 @@
 }
 
 .loader {
-  height: 20px;
-  width: 250px;
+  height: 22px;
+  width: 260px;
   position: relative;
+  filter: drop-shadow(var(--shadow));
 }
 
 .loader--dot {
   animation-name: loader;
-  animation-timing-function: ease-in-out;
-  animation-duration: 2s; /* tổng thời gian 1 giây */
+  animation-timing-function: cubic-bezier(.4, .0, .2, 1);
+  animation-duration: 1.6s;
   animation-iteration-count: infinite;
-  height: 20px;
-  width: 20px;
+  height: 18px;
+  width: 18px;
   border-radius: 50%;
   position: absolute;
 }
 
-/* màu + delay */
 .loader--dot:nth-child(1) {
-  background-color: #8cc759;
+  background-color: #B6F7E4;
+  left: 0;
   animation-delay: 0s;
 }
+
 .loader--dot:nth-child(2) {
-  background-color: #8c6daf;
-  animation-delay: 0.1s;
+  background-color: #86F1D0;
+  left: 40px;
+  animation-delay: 0.08s;
 }
+
 .loader--dot:nth-child(3) {
-  background-color: #ef5d74;
-  animation-delay: 0.2s;
+  background-color: #36D399;
+  left: 80px;
+  animation-delay: 0.16s;
 }
+
 .loader--dot:nth-child(4) {
-  background-color: #f9a74b;
-  animation-delay: 0.3s;
+  background-color: #7EEAC5;
+  left: 120px;
+  animation-delay: 0.24s;
 }
+
 .loader--dot:nth-child(5) {
-  background-color: #60beeb;
-  animation-delay: 0.4s;
+  background-color: #34C9A5;
+  left: 160px;
+  animation-delay: 0.32s;
 }
+
 .loader--dot:nth-child(6) {
-  background-color: #fbef5a;
-  animation-delay: 0.5s;
+  background-color: #DFFEF6;
+  left: 200px;
+  animation-delay: 0.4s;
 }
 
 .loader--text {
   position: absolute;
-  top: 200%;
+  top: 220%;
   left: 0;
   right: 0;
   width: 6rem;
   margin: auto;
   text-align: center;
-  font-size: 1.1rem;
-  color: #ffffff;
+  font-size: 1rem;
+  color: var(--text);
 }
 
 @keyframes loader {
   0% {
-    transform: translateX(0);
+    transform: translateX(0) scale(1);
   }
+
   50% {
-    transform: translateX(230px);
+    transform: translateX(10px) scale(1.05);
   }
+
   100% {
-    transform: translateX(0);
+    transform: translateX(0) scale(1);
   }
 }
 
 /* ===== Hiện nội dung sau loader ===== */
 .main-content {
   opacity: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  animation: showContent 0.5s ease 0.5s forwards; /* hiện sau 1s */
+  animation: showContent 0.6s ease 0.6s forwards;
 }
 
 @keyframes showContent {
@@ -103,9 +128,6 @@
   }
 }
 
-
-
-
 /* Căn giữa logo */
 .search-box {
   display: flex;
@@ -113,25 +135,47 @@
   align-items: center;
   margin: 20px 0;
 }
-/* Logo có hiệu ứng phồng to - thu nhỏ */
+
 .logo-pulse {
-  width: 211px;
-  height: 100px;
-  animation: pulse 2.5s ease-in-out infinite;
+  width: 200px;
+  height: auto;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--accent-2), var(--accent-1));
+  box-shadow: 0 12px 40px rgba(13, 58, 49, 0.08);
+  animation: pulse 3s ease-in-out infinite;
   transform-origin: center;
+  object-fit: contain;
 }
-/* Hiệu ứng nhịp tim */
+
 @keyframes pulse {
   0% {
     transform: scale(1);
-    filter: drop-shadow(0 0 0px rgba(255, 255, 255, 0));
+    filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0));
   }
+
   50% {
-    transform: scale(1.08);
-    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+    transform: scale(1.06);
+    filter: drop-shadow(0 8px 30px rgba(169, 123, 155, 0.06));
   }
+
   100% {
     transform: scale(1);
-    filter: drop-shadow(0 0 0px rgba(255, 255, 255, 0));
+    filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0));
+  }
+}
+
+/* Utility: subtle entrance for form controls */
+.container {
+  transform: translateY(6px);
+  opacity: 0;
+  animation: liftIn 0.6s ease 0.8s forwards;
+}
+
+@keyframes liftIn {
+  to {
+    transform: none;
+    opacity: 1;
   }
 }

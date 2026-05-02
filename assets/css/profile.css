@@ -6,83 +6,106 @@
   width: 28px;
   height: 20px;
   cursor: pointer;
-  z-index: 200; /* luôn trên popup */
+  z-index: 220;
+  /* always above popup */
 }
 
 .hamburger span {
   display: block;
   height: 3px;
-  background-color: #fff; /* màu gạch */
-  border-radius: 2px;
-  transition: all 0.3s ease;
+  background-color: var(--text, #fff);
+  border-radius: 3px;
+  transition: all .25s ease;
 }
 
-/* ===== Popup thông tin liên hệ ===== */
+/* ===== Popup thông tin liên hệ (minimal, FB-only) ===== */
 .contact-popup {
   position: absolute;
   top: 60px;
-  right: 25px;
-  background: linear-gradient(135deg, #4c65f6, #b57eff);
-  color: #fff;
-  padding: 25px 20px;
-  border-radius: 15px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  right: 18px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.86));
+  color: var(--text);
+  padding: 18px 16px;
+  border-radius: 14px;
+  box-shadow: 0 12px 40px rgba(93, 62, 96, 0.08);
   display: none;
-  z-index: 150;
-  min-width: 240px;
-  font-family: 'Segoe UI', sans-serif;
-  animation: fadeIn 0.3s ease forwards;
+  z-index: 210;
+  min-width: 220px;
+  animation: fadeIn 0.24s ease forwards;
 }
 
-/* Tiêu đề */
 .contact-popup h3 {
-  margin-top: 0;
-  font-size: 1.2rem;
+  margin: 0 0 8px 0;
+  font-size: 1.05rem;
   font-weight: 700;
+  font-family: 'Baloo 2', cursive;
   text-align: center;
-  text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
 }
 
-/* Nội dung thông tin liên hệ */
 .contact-popup p {
-  margin: 10px 0;
+  margin: 0 0 12px 0;
   font-size: 0.95rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+.fb-actions {
   display: flex;
+  justify-content: center;
   align-items: center;
+  gap: 12px;
 }
 
-/* Icon bên cạnh từng thông tin */
-.contact-popup p::before {
-  content: '⭐';
-  margin-right: 8px;
-  display: inline-block;
+.fb-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 12px;
+  color: var(--card);
+  background: linear-gradient(135deg, var(--accent-2), var(--accent-1));
+  box-shadow: 0 8px 20px rgba(14, 55, 47, 0.06);
+  transition: transform .18s ease, box-shadow .18s ease;
 }
 
-.contact-popup p:nth-child(2)::before { content: '✉️'; }
-.contact-popup p:nth-child(3)::before { content: '📞'; }
+.fb-link:hover {
+  transform: translateY(-4px) scale(1.02);
+  background: linear-gradient(135deg, var(--accent-2), var(--accent-1));
+  box-shadow: 0 8px 20px rgba(14, 55, 47, 0.08);
+}
 
-/* Nút đóng */
+.fb-link .fb-icon {
+  width: 26px;
+  height: 26px;
+  color: #fff;
+}
+
+/* Close button */
 #closePopup {
   display: block;
-  margin: 15px auto 0 auto;
-  padding: 8px 16px;
-  background-color: #fff;
-  color: #000000;
-  font-weight: 600;
-  border: none;
-  border-radius: 8px;
+  margin: 12px auto 0 auto;
+  padding: 8px 14px;
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 10px;
   cursor: pointer;
-  transition: all 0.3s ease;
 }
 
 #closePopup:hover {
-  background-color: #b57eff;
-  color: #fff;
   transform: translateY(-2px);
+  color: var(--text);
 }
 
-/* Animation fade-in */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px);}
-  to { opacity: 1; transform: translateY(0);}
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }

@@ -1,50 +1,48 @@
 /* 🔹 App bar */
 .app-bar {
   position: relative;
-  width: 100vw; /* full chiều rộng màn hình */
+  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 20px;
-  background: rgba(255, 255, 255, 0);
-  backdrop-filter: blur(10px);
   padding: 12px 0;
-  border-bottom: 1px solid rgb(255, 255, 255);
+  backdrop-filter: blur(6px);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.06));
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 60;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 /* 🔹 Nút cơ bản (chưa active) */
 .app-bar a {
   text-decoration: none;
-  color: #fff;
+  color: var(--muted);
   font-weight: 600;
-  padding: 10px 25px;
-  border-radius: 30px;
-  border: 2px solid rgba(255, 255, 255, 0.8);
+  padding: 10px 20px;
+  border-radius: 28px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
   background: transparent;
-  transition: all 0.3s ease;
+  transition: all .22s ease;
+  font-family: 'Sora', sans-serif;
 }
 
-/* Hover (chỉ làm sáng nhẹ viền) */
 .app-bar a:hover {
-  border-color: #b57eff;
-  color: #b57eff;
+  color: var(--accent-1);
+  transform: translateY(-2px);
 }
 
-/* 🔹 Nút đang active (trang hiện tại) */
+/* Active */
 .app-bar a.active {
-  background: linear-gradient(90deg, #b57eff 0%, #4c65f6 100%);
-  border: none;
-  box-shadow: 0 0 15px rgba(181, 126, 255, 0.5);
+  background: linear-gradient(90deg, var(--accent-2), var(--accent-1));
   color: #fff;
+  box-shadow: 0 8px 24px rgba(14, 55, 47, 0.08);
+  border: none;
 }
 
-
-/* Nút 3 gạch sát bên phải */
+/* Hamburger */
 .hamburger {
-  margin-left: right;  /* đẩy sang phải */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -56,7 +54,7 @@
 .hamburger span {
   display: block;
   height: 3px;
-  background-color: #fff;
-  border-radius: 2px;
-  transition: all 0.3s ease;
+  background-color: var(--muted);
+  border-radius: 3px;
+  transition: all .2s ease;
 }

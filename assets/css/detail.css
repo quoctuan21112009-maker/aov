@@ -14,9 +14,9 @@
 /* Hover hoặc bấm vào (active) */
 .back-btn:hover,
 .back-btn:active {
-  background: linear-gradient(90deg, #4c65f6 0%, #b57eff 100%);
+  background: linear-gradient(90deg, var(--accent-2), var(--accent-1));
   border: none;
-  box-shadow: 0 0 15px rgba(181, 126, 255, 0.5);
+  box-shadow: 0 6px 26px rgba(14, 55, 47, 0.12);
   color: #fff;
   transform: translateY(-2px);
 }
@@ -24,28 +24,37 @@
 /* Container ảnh (giữ nguyên container của bạn) */
 #detailContainer {
   display: flex;
-  justify-content: center; /* căn giữa ảnh */
+  justify-content: center;
+  /* căn giữa ảnh */
 }
 
 /* Ảnh chi tiết */
 #detailContainer img {
-  max-width: 100%;    /* không vượt quá khung */
-  height: auto;         /* giữ tỉ lệ gốc */
-  object-fit: contain;  /* giữ tỉ lệ 9:16 hay 16:9 */
+  max-width: 100%;
+  /* không vượt quá khung */
+  height: auto;
+  /* giữ tỉ lệ gốc */
+  object-fit: contain;
+  /* giữ tỉ lệ 9:16 hay 16:9 */
   display: block;
 }
+
 .links-container {
   display: flex;
-  flex-direction: column; /* đặt thành cột */
-  gap: 10px;              /* khoảng cách giữa các link */
+  flex-direction: column;
+  /* đặt thành cột */
+  gap: 10px;
+  /* khoảng cách giữa các link */
   margin-top: 10px;
-  align-items: last;     /* căn giữa theo chiều ngang */
+  align-items: last;
+  /* căn giữa theo chiều ngang */
 }
+
 .detail-link {
   padding: 8px 16px;
-  background-color: #4c65f6;
+  background-color: var(--accent-1);
   color: #fff;
   text-decoration: none;
-  border-radius: 5px;
+  border-radius: 6px;
   text-align: center;
 }

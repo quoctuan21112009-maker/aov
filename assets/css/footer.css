@@ -1,10 +1,11 @@
 /* Footer chung */
 .site-footer {
-  color: #fff;
-  padding: 30px 20px;
-  border-top: 2px solid #00ddff;
+  color: var(--text, #222);
+  padding: 28px 20px;
   margin-top: 50px;
-  font-family: Arial, sans-serif;
+  font-family: 'Sora', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background: transparent;
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 /* Container 2 cột */
@@ -13,49 +14,64 @@
   justify-content: space-between;
   max-width: 1200px;
   margin: 0 auto;
-  flex-wrap: nowrap; /* không cho xuống hàng */
+  gap: 20px;
+  align-items: center;
 }
 
 
 /* Cột trái */
 .footer-left {
-  flex: 1 1 45%; /* chiếm khoảng 45% width */
+  flex: 1 1 45%;
+  /* chiếm khoảng 45% width */
   margin-bottom: 20px;
 }
 
 .footer-left h3 {
-  color: #ffcc00;
-  margin-bottom: 10px;
+  color: var(--accent-1);
+  margin-bottom: 8px;
+  font-family: 'Baloo 2', cursive;
 }
 
 .footer-left p {
-  font-size: 0.95em;
+  font-size: 0.95rem;
   line-height: 1.5;
+  color: var(--muted);
 }
 
 /* Cột phải */
 .footer-right {
-  flex: 1 1 45%; /* chiếm khoảng 45% width */
-  margin-bottom: 20px;
+  flex: 1 1 45%;
+  margin-bottom: 0;
   text-align: right;
 }
 
 .footer-right h3 {
-  color: #ffcc00;
-  margin-bottom: 10px;
+  color: var(--accent-1);
+  margin-bottom: 8px;
+  font-family: 'Baloo 2', cursive;
 }
 
-.footer-right a {
-  color: #00ddff;
+.footer-right .fb-footer {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   text-decoration: none;
+  color: var(--accent-1);
 }
 
-.footer-right a:hover {
-  text-decoration: underline;
+.footer-right .fb-footer .fb-icon {
+  width: 28px;
+  height: 28px;
+  color: var(--accent-1);
+  transition: transform .18s ease;
+}
+
+.footer-right .fb-footer:hover .fb-icon {
+  transform: translateY(-3px) scale(1.05);
 }
 
 /* Responsive: màn hình nhỏ */
-@media screen and (max-width: 768px) {
+@media screen and (max-width:768px) {
   .footer-container {
     flex-direction: column;
     text-align: center;
